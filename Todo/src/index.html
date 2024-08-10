@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Definitive Daleale Todo App</title>
+
+    <link href="./css/output.css" rel="stylesheet">
+</head>
+<body>
+
+    <main>
+        <h1 class="text-4xl text-cyan-600 m-2">daleale's Todo App</h1>
+
+        <article class="border-2 border-solid border-cyan-700 p-2 mb-2">
+            <section>
+                <input type="text" placeholder="Enter a title" id="todo-title">
+                <input type="text" placeholder="Enter a description" id="todo-description">
+                <button class="bg-orange-400 p-2" id="add-todo">add todo</button>
+            </section>
+        </article>
+
+        <article class="border-2 border-solid border-cyan-700 p-2">
+            <ul id="todo-list">
+                <li class="border-4 border-solid border-cyan-300 inline-block bg-cyan-100">
+                    <h2 class="text-xl font-semibold">task 1</h2>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <section>
+                        <button class="bg-green-400 p-2">check</button>
+                        <button class="bg-yellow-400 p-2">edit</button>
+                        <button class="bg-red-400 p-2">delete</button>
+                    </section>
+                </li>
+                <li class="border-4 border-solid border-cyan-300 inline-block bg-cyan-100">
+                    <h2 class="text-xl font-semibold">task 2</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                    <section>
+                        <button class="bg-green-400 p-2">check</button>
+                        <button class="bg-yellow-400 p-2">edit</button>
+                        <button class="bg-red-400 p-2">delete</button>
+                    </section>
+                </li>
+            </ul>
+        </article>
+    </main>
+    
+    <script src="./js/app.js" type="module"></script>
+</body>
+</html>
