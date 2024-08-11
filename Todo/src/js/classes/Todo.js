@@ -11,6 +11,10 @@ export default class Todo {
         this.completed = !this.completed
     }
 
+    isCompleted() {
+        return this.completed
+    }
+
     hasId(id) {
         return this.id === id
     }

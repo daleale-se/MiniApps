@@ -6,13 +6,16 @@ export default class EditTodoPopup {
 
     displayPopup({ title, description, id }, todoManager, todoList) {
 
+        this.clearPopup()
         const editArticle = document.createElement("article")
         const titleInput = document.createElement("input")
         titleInput.id = "title-update"
+        titleInput.setAttribute("placeholder", "Enter a title")
         titleInput.value = title
         titleInput.type = "text"
         const descriptionInput = document.createElement("input")
         descriptionInput.id = "description-update"
+        descriptionInput.setAttribute("placeholder", "Enter a description")
         descriptionInput.value = description
         descriptionInput.type = "text"
         const updateBtn = document.createElement("button")

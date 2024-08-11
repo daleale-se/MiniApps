@@ -5,15 +5,15 @@ import { TODOS } from "../data/todos.js"
 
 const main = () => {
     
-    const todoForm = new TodoForm()
     const todoList = new TodoList()
     const todoManager = new TodoManager()
+    const todoForm = new TodoForm(todoManager, todoList)
 
     const addTodoBtn = document.getElementById("add-todo")
-    addTodoBtn.addEventListener("click", () => todoForm.addTodo(todoManager, todoList))
+    addTodoBtn.addEventListener("click", todoForm.addTodo.bind(todoForm))
 
     todoList.createTodos(TODOS, todoManager)
-    
+
 }
 
 main()

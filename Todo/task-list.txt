@@ -1,0 +1,6 @@
+- add todo validation
+- add localStorage
+- add the real popup
+- improve styling
+- do class refactoring
+- improve code writing

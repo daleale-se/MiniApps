@@ -42,7 +42,6 @@ const main = () => {
 
     let interval = setInterval(() => {
         if (!shapeDoingCollision(grid, shape, position)) {
-            grid = clearLines(grid)
             grid = updateGrid(grid, shape, position)
             position = [4, 0]
             shape = buildTetromino(randomLetter())
