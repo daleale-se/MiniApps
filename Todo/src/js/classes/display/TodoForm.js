@@ -11,8 +11,7 @@ export default class TodoForm {
             description: this.descriptionInput.value
         }
         todoManager.addTodo(todoContent)
-        todoList.clearTodos()
-        todoManager.displayList(todoList)
+        todoList.updateTodo(todoManager)
         this.clearForm()
     }
 

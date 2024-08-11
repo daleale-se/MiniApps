@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <main>
+    <main id="container">
         <h1 class="text-4xl text-cyan-600 m-2">daleale's Todo App</h1>
 
         <article class="border-2 border-solid border-cyan-700 p-2 mb-2">
@@ -18,15 +18,22 @@
                 <input type="text" placeholder="Enter a description" id="todo-description">
                 <button class="bg-orange-400 p-2" id="add-todo">add todo</button>
             </section>
+            <section>
+                <select name="show-task-mode" id="show-task-mode">
+                    <option value="all" selected>all</option>
+                    <option value="completed">completed</option>
+                    <option value="incompleted">incompleted</option>
+                </select>
+            </section>
         </article>
 
         <article class="border-2 border-solid border-cyan-700 p-2">
             <ul id="todo-list">
-                <li class="border-4 border-solid border-cyan-300 inline-block bg-cyan-100">
+                <!-- <li class="border-4 border-solid inline-block bg-fuchsia-200 border-fuchsia-400">
                     <h2 class="text-xl font-semibold">task 1</h2>
                     <p>Lorem ipsum dolor sit amet.</p>
                     <section>
-                        <button class="bg-green-400 p-2">check</button>
+                        <button class="bg-green-400 p-2">completed</button>
                         <button class="bg-yellow-400 p-2">edit</button>
                         <button class="bg-red-400 p-2">delete</button>
                     </section>
@@ -35,13 +42,18 @@
                     <h2 class="text-xl font-semibold">task 2</h2>
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
                     <section>
-                        <button class="bg-green-400 p-2">check</button>
+                        <button class="bg-green-400 p-2">completed</button>
                         <button class="bg-yellow-400 p-2">edit</button>
                         <button class="bg-red-400 p-2">delete</button>
                     </section>
-                </li>
+                </li> -->
             </ul>
         </article>
+
+        <article id="todo-edit-popup">
+
+        </article>
+
     </main>
     
     <script src="./js/app.js" type="module"></script>

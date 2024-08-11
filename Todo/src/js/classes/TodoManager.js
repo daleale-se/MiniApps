@@ -7,25 +7,23 @@ export default class TodoManager {
     }
 
     addTodo(todoContent) {
-        this.todoList.push(new Todo(todoContent))
+        this.todoList.push(new Todo({ ...todoContent, id: todoContent.id ?? this.todoList.length }))
     }
 
-    removeTodo(index) {
-        this.todoList = this.todoList.filter((_, i) => i !== index)
+    removeTodo(id) {
+        this.todoList = this.todoList.filter(todo => !todo.hasId(id))
     }
 
-    editTodo(index, todoContent) {
-        this.todoList[index].edit(todoContent)
+    editTodo(id, todoContent) {
+        this.todoList.find(todo => todo.hasId(id)).edit(todoContent)
     }
 
-    checkTodo(index) {
-        this.todoList[index].switchCompleted()
+    completedTodo(id) {
+        this.todoList.find(todo => todo.hasId(id)).switchCompleted()
     }
 
     displayList(todoList) {
-        for (const todo of this.todoList) {
-            todo.createCard(todoList)
-        }
+        this.todoList.forEach(todo => todo.createCard(todoList, this))
     }
 
 }

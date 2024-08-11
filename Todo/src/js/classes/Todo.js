@@ -1,13 +1,18 @@
 export default class Todo {
 
-    constructor({ title, description }) {
+    constructor({ title, description, id}) {
         this.title = title
         this.description = description
-        this.checked = false
+        this.completed = false
+        this.id = id
     }
 
-    switchChecked() {
-        this.checked = !this.checked
+    switchCompleted() {
+        this.completed = !this.completed
+    }
+
+    hasId(id) {
+        return this.id === id
     }
 
     edit({ title, description }) {
@@ -15,13 +20,14 @@ export default class Todo {
         this.description = description
     }
 
-    createCard(todoList) {
+    createCard(todoList, todoManager) {
         const todoContent = {
             title: this.title,
             description: this.description,
-            checked: this.checked
+            completed: this.completed,
+            id: this.id
         }
-        todoList.createCard(todoContent)
+        todoList.createCard(todoContent, todoManager)
     }
 
 }
