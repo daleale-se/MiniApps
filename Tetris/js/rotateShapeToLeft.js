@@ -1,4 +1,4 @@
-export const rotateShapeToLeft = (shape) => {
+const rotateShapeToLeft = (shape) => {
 
     const rotatedShape = []
 
@@ -14,10 +14,4 @@ export const rotateShapeToLeft = (shape) => {
     
 }
 
-// let figure = {
-//     shape: [["b", "e"], ["b", "e"], ["b", "b"]],
-//     color: "red"
-// }
-
-// figure = rotateShapeToLeft(figure)
-// figure = rotateShapeToLeft(figure)
+export default rotateShapeToLeft
