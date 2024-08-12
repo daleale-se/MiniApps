@@ -9,6 +9,7 @@ import rightCollision from "./js/rightCollision.js"
 import dropShape from "./js/dropShape.js"
 import downCollision from "./js/downCollision.js"
 import gridTopOverlap from "./js/gridTopOverlap.js"
+import clearCompleteRows from "./js/clearCompleteRows.js"
 
 const buildRow = (row) => {
     const rowContainer = document.createElement("div")
@@ -51,6 +52,7 @@ const main = () => {
             position = dropShape(grid, shape, position)
 
             grid = updateGrid(grid, shape, position)
+            grid = clearCompleteRows(grid, position)
             position = [4, 0]
             shape = buildTetromino(randomLetter())
         }
@@ -71,6 +73,7 @@ const main = () => {
                 clearInterval(updateGridInterval)
                 document.removeEventListener("keypress", handleKeyControl)
             }
+            grid = clearCompleteRows(grid, position)
             position = [4, 0]
             shape = buildTetromino(randomLetter())
         }
