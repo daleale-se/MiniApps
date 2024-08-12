@@ -1,13 +1,13 @@
 import shapeHeight from "./utils/shapeHeight.js";
 import shapeWidth from "./utils/shapeWidth.js";
 
-const shapeDoingCollision = (grid, shape, [ xPos, yPos ]) => {
+const downCollision = (grid, shape, [ xPos, yPos ]) => {
     
     let shouldFalling = true
     let i = 0
     
-    while (i < shapeWidth(shape) && shouldFalling) {
-        if (yPos + 1 === 20) {
+    while (i < shapeWidth(shape) && shouldFalling && yPos < 20) {
+        if (yPos === 19) {
             shouldFalling = false
         } else {
             let aux = 0
@@ -25,4 +25,4 @@ const shapeDoingCollision = (grid, shape, [ xPos, yPos ]) => {
 
 }
 
-export default shapeDoingCollision
+export default downCollision

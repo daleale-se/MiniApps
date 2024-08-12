@@ -7,7 +7,7 @@ const rightCollision = (grid, shape, [ xPos, yPos ]) => {
     let i = 0
 
     while (i < shapeHeight(shape) && shouldMove && 0 <= yPos - i) {
-        if (xPos + 1 === 10) {
+        if (xPos === 9) {
             shouldMove = false
         } else {
             let aux = 0

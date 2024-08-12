@@ -1,0 +1,5 @@
+- gameover [v]
+- clearline [x]
+- linecount [x]
+- next shape [x]
+- rotate close wall & shapes
