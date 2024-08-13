@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: rgb(73, 106, 108);
+}
+
 .red {
     background-color: red;
 }
@@ -40,4 +44,21 @@
 
 button {
     padding: 1em;
+}
+
+audio {
+    display: none;
+}
+
+main {
+    display: flex;
+    gap: 1rem;
+}
+
+#grid {
+    margin: 1rem;
+}
+
+#score-container {
+    margin: auto 1rem;
 }
