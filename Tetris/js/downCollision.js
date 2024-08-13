@@ -1,5 +1,5 @@
-import shapeHeight from "./utils/shapeHeight.js";
-import shapeWidth from "./utils/shapeWidth.js";
+import shapeHeight from "./shapeHeight.js";
+import shapeWidth from "./shapeWidth.js";
 
 const downCollision = (grid, shape, [ xPos, yPos ]) => {
     

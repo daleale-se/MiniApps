@@ -1,4 +1,4 @@
-import { TETROMINOES } from "./constanst.js"
+import { TETROMINOES } from "./constants.js"
  
 const randomLetter = () => {
     const lettersArr = Object.keys(TETROMINOES) 

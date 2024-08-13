@@ -14,3 +14,5 @@ export const COLORS = {
     "G": "green",
     "_": "black"
 }
+
+export const POINTS_PER_ROW = 100

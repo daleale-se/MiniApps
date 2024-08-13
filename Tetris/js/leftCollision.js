@@ -1,4 +1,4 @@
-import shapeHeight from "./utils/shapeHeight.js"
+import shapeHeight from "./shapeHeight.js";
 
 const leftCollision = (grid, shape, [ xPos, yPos ]) => {
 

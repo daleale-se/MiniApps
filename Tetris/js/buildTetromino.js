@@ -1,4 +1,4 @@
-import { TETROMINOES } from "./constanst.js"
+import { TETROMINOES } from "./constants.js"
 
 const buildTetromino = (letter) => {
     return TETROMINOES[letter]
