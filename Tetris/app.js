@@ -1,4 +1,5 @@
-import { COLORS } from "./js/constanst.js"
+import showGrid from "./js/display/showGrid.js"
+import showScore from "./js/display/showScore.js"
 import buildTetromino from "./js/buildTetromino.js"
 import createGrid from "./js/createGrid.js"
 import updateGrid from "./js/updateGrid.js"
@@ -10,32 +11,16 @@ import dropShape from "./js/dropShape.js"
 import downCollision from "./js/downCollision.js"
 import gridTopOverlap from "./js/gridTopOverlap.js"
 import clearCompleteRows from "./js/clearCompleteRows.js"
-
-const buildRow = (row) => {
-    const rowContainer = document.createElement("div")
-    rowContainer.classList.add("row")
-    rowContainer.innerHTML = row.map(e => `<span class="${COLORS[e]} block"></span>`).join("")
-    return rowContainer
-}
-
-const showGrid = (grid) => {
-
-    const gridContainer = document.getElementById("grid")
-    gridContainer.remove()
-    gridContainer.innerHTML = ""
-    const rowsElements = grid.map(row => buildRow(row))
-    for (const row of rowsElements) {
-        gridContainer.appendChild(row)
-    }
-    document.body.appendChild(gridContainer)
-
-}
+import movementsToLeft from "./js/movementsToLeft.js"
+import canGoToLeft from "./js/canGoToLeft.js"
+import scoreCompleteRows from "./js/scoreCompleteRows.js"
 
 const main = () => {
     
     let grid = createGrid()
     let shape = buildTetromino(randomLetter())
     let position = [4, 0]
+    let score = 0
 
     const handleKeyControl = (e) => {
         if (e.key === "j") {
@@ -47,16 +32,27 @@ const main = () => {
                 position = [position[0] + 1, position[1]]
             }
         } else if (e.key === "i") {
-            shape = rotateShapeToLeft(shape)
+
+            const rotatedShape = rotateShapeToLeft(shape)
+            const xPosFixed = movementsToLeft(grid, rotatedShape, position)
+            if (xPosFixed === 0) {
+                shape = rotatedShape
+            } else if (canGoToLeft(grid, rotatedShape, [position[0] - xPosFixed, position[1]])) {
+                position = [position[0] - xPosFixed, position[1]]
+                shape = rotatedShape
+            }    
+        
         } else if (e.key === "k") {
             position = dropShape(grid, shape, position)
 
             grid = updateGrid(grid, shape, position)
-            grid = clearCompleteRows(grid, position)
+            score = scoreCompleteRows(grid, score)
+            grid = clearCompleteRows(grid)
             position = [4, 0]
             shape = buildTetromino(randomLetter())
         }
         showGrid(updateGrid(grid, shape, position));
+        showScore(score)
     }
 
     let fallingInterval = setInterval(() => {
@@ -65,6 +61,7 @@ const main = () => {
 
     let updateGridInterval = setInterval(() => {
         showGrid(updateGrid(grid, shape, position));
+        showScore(score)
         if (!downCollision(grid, shape, position)) {
             grid = updateGrid(grid, shape, position)
             if (gridTopOverlap(grid)) {
@@ -73,6 +70,7 @@ const main = () => {
                 clearInterval(updateGridInterval)
                 document.removeEventListener("keypress", handleKeyControl)
             }
+            score = scoreCompleteRows(grid, score)
             grid = clearCompleteRows(grid, position)
             position = [4, 0]
             shape = buildTetromino(randomLetter())
