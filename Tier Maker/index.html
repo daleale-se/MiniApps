@@ -52,6 +52,12 @@
             display: flex;
             flex-direction: row;
             border-bottom: 1px solid #111;
+            transition: all .3s ease;
+
+            &.drag-over {
+                background: #555;
+                scale: 1.01;
+            }
         }
 
         /* using custom properties */
@@ -72,8 +78,201 @@
             }
 
         }
-        
+
+        #selector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        #selector-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 16px;
+
+
+            & button {
+                border: none;
+            }
+
+            & button, & label {
+                cursor: pointer;
+                transition: all .3s ease;
+                background: #222;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 24px;
+                height: 24px;
+                padding: 4px;
+
+                &:hover {
+                    background: #444;
+                    scale: 1.1;
+                }
+
+                & svg {
+                    width: 100%;
+                    height: 100%;
+                    color: white;
+                }
+
+            }
+        }
+
+        #selector-items {
+            border: 1px solid #666;
+            width: 100%;
+            height: 100px;
+            display: flex;
+        }
+
+        .item-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            background: #fff;
+            cursor: grab;
+
+            &.drag-preview {
+                opacity: .5;
+                pointer-events: none;
+            }    
+        }
+
     </style>
+
+    <script type="module">
+        const $ = el => document.querySelector(el)
+        const $$ = el => document.querySelectorAll(el)
+
+        function createItem(src) {
+            const imgElement = document.createElement("img")
+            imgElement.draggable = true
+            imgElement.src = src
+            imgElement.className = "item-image"
+            
+            imgElement.addEventListener("dragstart", handleDragStart)
+            imgElement.addEventListener("dragend", handleDragEnd)
+
+            itemsSection.appendChild(imgElement) 
+            return imgElement
+        }
+
+        const imageInput = $("#image-input")
+        const itemsSection = $("#selector-items")
+
+        imageInput.addEventListener("change", (event) => {
+            // console.log(event.target.files)
+            
+            const [...files] = event.target.files
+
+            // or 
+            // const { files } = event.target
+            // Array.from(files).forEach(file => {...})
+            
+            // console.log(files)
+
+            if (files) {
+                files.forEach(file => {
+                    // investigar que hace el FileReader()
+                    const reader = new FileReader()
+                    reader.onload = (eventReader) => {
+                        createItem(eventReader.target.result)
+                    }
+                    reader.readAsDataURL(file)
+                })
+            }
+        })
+
+        itemsSection.addEventListener("drop", handleDrop)
+        itemsSection.addEventListener("dragover", handleDragOver)
+        itemsSection.addEventListener("dragleave", handleDragLeave)
+
+        let draggedElement = null
+        let sourceContainer = null
+
+        const rows = $$(".tier .row")
+
+        rows.forEach(row => {
+            row.addEventListener("drop", handleDrop)
+            row.addEventListener("dragover", handleDragOver)
+            row.addEventListener("dragleave", handleDragLeave)
+        })
+
+        function handleDrop(event) {
+
+            event.preventDefault()
+
+            // investigar sobre event.dataTransfer
+            const { currentTarget, dataTransfer } = event
+
+            // viene de algun sitio y arrastramos un elemento
+            if (sourceContainer && draggedElement) {
+                sourceContainer.removeChild(draggedElement)
+            }
+
+            if (draggedElement) {
+                const src = dataTransfer.getData("text/plain")
+                const imgElement = createItem(src)
+                currentTarget.appendChild(imgElement)
+            }
+
+            currentTarget.classList.remove("drag-over")
+            //console.log("drop")
+
+            currentTarget.querySelector(".drag-preview")?.remove()
+        }
+
+        function handleDragOver(event) {
+
+            event.preventDefault()
+
+            const { currentTarget } = event
+
+            if (sourceContainer === currentTarget) return
+
+            currentTarget.classList.add("drag-over")
+
+            const dragPreview = document.querySelector(".drag-preview")
+
+            if (draggedElement && !dragPreview) {
+                const previewElement = draggedElement.cloneNode(true)
+                previewElement.classList.add("drag-preview")
+                currentTarget.appendChild(previewElement)
+            }
+
+            // console.log("drag over")
+        }
+
+        function handleDragLeave(event) {
+
+            event.preventDefault()
+
+            const { currentTarget } = event
+
+            currentTarget.classList.remove("drag-over")
+            // console.log("drag leave")
+            currentTarget.querySelector(".drag-preview")?.remove()
+
+        }
+
+        function handleDragStart(event) {
+            // console.log("drag start")
+            draggedElement = event.target
+            sourceContainer = draggedElement.parentNode
+            event.dataTransfer.setData("text/plain", draggedElement.src)
+        }
+
+        function handleDragEnd(event) {
+            // console.log("drag end")
+            draggedElement = null
+            sourceContainer = null
+        }
+
+    </script>
 </head>
 <body>
     <header id="top-header">
@@ -115,15 +314,23 @@
     <footer id="selector">
         <section id="selector-buttons">
             <label id="add-image-button">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M9 12h6" /><path d="M12 9v6" /></svg>
-                <input id="image-input" type="file" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                    <path d="M9 12h6" />
+                    <path d="M12 9v6" />
+                </svg>                
+                <input multiple accept="image/*" id="image-input" type="file" hidden>
             </label>
 
-            
             <button>
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-reload"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747" /><path d="M20 4v5h-5" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rotate-clockwise">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
+                </svg>            
             </button>
         </section>
+
         <section id="selector-items">
 
         </section>
