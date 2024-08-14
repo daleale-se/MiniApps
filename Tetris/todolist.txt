@@ -1,5 +1,5 @@
 - gameover [v]
 - clearline [v]
-- linecount [x]
-- rotate close wall & shapes [x]
+- linecount (score) [v]
+- rotate close wall & shapes [v]
 - clean app.js [x]
