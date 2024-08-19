@@ -97,33 +97,41 @@ function createItemTemplate({title, price, img, desc}) {
         </article>`
 }
 
-function displayCategoryButtons(category) {
-  const btnContainer = document.querySelector(".btn-container")
-  btnContainer.innerHTML += createButtonTemplate(category)
-}
-
 function createButtonTemplate(category) {
   return `
     <button class="filter-btn" data-filter=${category} type="button">${category}</button>
   `
 }
 
-function displayMenuItem(item) {
+function displayMenuItem(menu) {
+
   const menuSection = document.querySelector(".section-center")
-  menuSection.innerHTML += createItemTemplate(item)
+  menuSection.innerHTML = ""  
+  menu.forEach(item => {
+    menuSection.innerHTML += createItemTemplate(item)
+  })
+
 }
 
-function clearMenuItem() {
-  const menuSection = document.querySelector(".section-center")
-  menuSection.innerHTML = ""
+function addFilterByCategory() {
+
+  const filterBtns = document.querySelectorAll(".filter-btn")
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", (event) => {
+      const { filter } = event.currentTarget.dataset
+      if (filter === "all") {
+        displayMenuItem(menu)
+      } else {
+        const menuCategory = menu.filter(item => item.category === filter)
+        displayMenuItem(menuCategory)
+      }
+    })
+  })
+
 }
 
-// window vs document
-window.addEventListener("DOMContentLoaded", () => {
-  clearMenuItem()
-  menu.forEach(item => displayMenuItem(item))
-
-  // dynamic buttons
+function displayCategoryButtons() {
 
   const categories = menu.reduce((values, item) => {
     if (!values.includes(item.category)) {
@@ -132,20 +140,20 @@ window.addEventListener("DOMContentLoaded", () => {
     return values
   }, ["all"])
   
-  categories.forEach(category => displayCategoryButtons(category))
+  const butttonsTemplates = categories.map(category => createButtonTemplate(category))
+  const btnContainer = document.querySelector(".btn-container")
+  btnContainer.innerHTML = butttonsTemplates.join("")
 
-  const filterBtns = document.querySelectorAll(".filter-btn")
+  addFilterByCategory()
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener("click", (event) => {
-      const { filter } = event.currentTarget.dataset
-      clearMenuItem()
-      if (filter === "all") {
-        menu.forEach(item => displayMenuItem(item))
-      } else {
-        const menuCategory = menu.filter(item => item.category === filter)
-        menuCategory.forEach(item => displayMenuItem(item))
-      }
-    })
-  })
+}
+
+// window vs document
+window.addEventListener("DOMContentLoaded", () => {
+
+  displayMenuItem(menu)
+
+  // dynamic buttons
+  displayCategoryButtons()
+
 })
