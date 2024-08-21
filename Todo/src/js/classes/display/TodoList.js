@@ -19,46 +19,23 @@ export default class TodoList {
         const completedBtn = document.createElement("button")
         completedBtn.textContent = "completed"
         completedBtn.className = "bg-green-400 p-2"
-        completedBtn.onclick = () => this.completedTodo(todoManager, id)
+        completedBtn.onclick = () => todoManager.completedTodo(id)
         const editBtn = document.createElement("button")
         editBtn.innerText = "edit"
         editBtn.className = "bg-yellow-400 p-2"
-        editBtn.onclick = () =>  this.editTodo(todoManager, { title, description, id })
+        editBtn.onclick = () =>  this.editPopup.displayPopup(todoManager, { title, description, id })
         const deleteBtn = document.createElement("button")
         deleteBtn.innerText = "delete"
         deleteBtn.className = "bg-red-400 p-2"
-        deleteBtn.onclick = () => this.deleteTodo(todoManager, id)
+        deleteBtn.onclick = () => todoManager.removeTodo(id)
         btnSection.append(completedBtn, editBtn, deleteBtn)
         todoLi.append(cardTitle, cardDescription, btnSection)
         this.todoContainer.appendChild(todoLi)
-    }   
-
-    clearTodos() {
-        this.todoContainer.innerHTML = ""
     }
 
-    completedTodo(todoManager, id) {
-        todoManager.completedTodo(id)
-        this.updateTodos(todoManager)
-    }
-
-    editTodo(todoManager, todoContent) {
-        this.editPopup.displayPopup(todoContent, todoManager, this)
-    }
-
-    deleteTodo(todoManager, id) {
-        todoManager.removeTodo(id)
-        this.updateTodos(todoManager)
-    }
-
-    updateTodos(todoManager) {
-        this.clearTodos()
-        todoManager.displayList(this)
-    }
-
-    createTodos(todos, todoManager) {
-        todos.forEach(todo => todoManager.addTodo(todo));
-        this.updateTodos(todoManager)
-    }
+    // createTodos(todos, todoManager) {
+    //     todos.forEach(todo => todoManager.addTodo(todo));
+    //     this.updateTodos(todoManager)
+    // }
     
 }
