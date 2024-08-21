@@ -6,13 +6,13 @@ import { TODOS } from "../data/todos.js"
 const main = () => {
     
     const todoList = new TodoList()
-    const todoManager = new TodoManager()
-    const todoForm = new TodoForm(todoManager, todoList)
-
+    const todoForm = new TodoForm()
+    const todoManager = new TodoManager(todoForm, todoList)
+    
     const addTodoBtn = document.getElementById("add-todo")
-    addTodoBtn.addEventListener("click", todoForm.addTodo.bind(todoForm))
+    addTodoBtn.addEventListener("click", () => todoManager.newTodo())
 
-    todoList.createTodos(TODOS, todoManager)
+    // todoList.createTodos(TODOS, todoManager)
 
 }
 

@@ -4,9 +4,8 @@ export default class EditTodoPopup {
         this.popupContainer = document.getElementById("todo-edit-popup")
     }
 
-    displayPopup({ title, description, id }, todoManager, todoList) {
+    displayPopup(todoManager, { title, description, id }) {
 
-        this.clearPopup()
         const editArticle = document.createElement("article")
         const titleInput = document.createElement("input")
         titleInput.id = "title-update"
@@ -21,26 +20,21 @@ export default class EditTodoPopup {
         const updateBtn = document.createElement("button")
         updateBtn.classList = "bg-orange-400 p-2"
         updateBtn.innerText = "update"
-        updateBtn.onclick = () => this.editTodo(id, todoManager, todoList)
+        updateBtn.onclick = () => todoManager.editTodo(id, { title: titleInput.value, description: descriptionInput.value})
         editArticle.append(titleInput, descriptionInput, updateBtn)
         this.popupContainer.appendChild(editArticle)
 
     }
 
-    clearPopup() {
-        this.popupContainer.innerHTML = ""
-    }
-
-    editTodo(id, todoManager, todoList) {
-        const titleInput = this.popupContainer.querySelector("#title-update")
-        const descriptionInput = this.popupContainer.querySelector("#description-update")
-        const todoContent = {
-            title: titleInput.value,
-            description: descriptionInput.value,
-        }
-        todoManager.editTodo(id, todoContent)
-        todoList.updateTodos(todoManager)
-        this.clearPopup()
-    }
+    // editTodo(id, todoManager) {
+    //     const titleInput = this.popupContainer.querySelector("#title-update")
+    //     const descriptionInput = this.popupContainer.querySelector("#description-update")
+    //     const todoContent = {
+    //         title: titleInput.value,
+    //         description: descriptionInput.value,
+    //     }
+    //     todoManager.editTodo(id, todoContent)
+    //     this.popupContainer.innerHTML = ""
+    // }
 
 }
