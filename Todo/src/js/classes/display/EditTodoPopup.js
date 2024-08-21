@@ -20,21 +20,19 @@ export default class EditTodoPopup {
         const updateBtn = document.createElement("button")
         updateBtn.classList = "bg-orange-400 p-2"
         updateBtn.innerText = "update"
-        updateBtn.onclick = () => todoManager.editTodo(id, { title: titleInput.value, description: descriptionInput.value})
+        updateBtn.onclick = () => this.editTodo(todoManager, id)
         editArticle.append(titleInput, descriptionInput, updateBtn)
         this.popupContainer.appendChild(editArticle)
 
     }
 
-    // editTodo(id, todoManager) {
-    //     const titleInput = this.popupContainer.querySelector("#title-update")
-    //     const descriptionInput = this.popupContainer.querySelector("#description-update")
-    //     const todoContent = {
-    //         title: titleInput.value,
-    //         description: descriptionInput.value,
-    //     }
-    //     todoManager.editTodo(id, todoContent)
-    //     this.popupContainer.innerHTML = ""
-    // }
+    editTodo(todoManager, id) {
+        const todoContent = {
+            title: this.popupContainer.querySelector("#title-update").value,
+            description: this.popupContainer.querySelector("#description-update").value,
+        }
+        todoManager.editTodo(id, todoContent)
+        this.popupContainer.innerHTML = ""
+    }
 
 }

@@ -33,9 +33,8 @@ export default class TodoList {
         this.todoContainer.appendChild(todoLi)
     }
 
-    // createTodos(todos, todoManager) {
-    //     todos.forEach(todo => todoManager.addTodo(todo));
-    //     this.updateTodos(todoManager)
-    // }
-    
+    clearTodos() {        
+        this.todoContainer.innerHTML = ""
+    }
+
 }

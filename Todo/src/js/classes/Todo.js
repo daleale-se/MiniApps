@@ -1,9 +1,9 @@
 export default class Todo {
 
-    constructor({ title, description, id}) {
+    constructor({ title, description, completed = false, id }) {
         this.title = title
         this.description = description
-        this.completed = false
+        this.completed = completed
         this.id = id
     }
 
@@ -25,13 +25,16 @@ export default class Todo {
     }
 
     createCard(todoList, todoManager) {
-        const todoContent = {
+        todoList.createCard(this.toObjectLiteral(), todoManager)
+    }
+
+    toObjectLiteral() {
+        return {
             title: this.title,
             description: this.description,
             completed: this.completed,
             id: this.id
         }
-        todoList.createCard(todoContent, todoManager)
     }
 
 }
