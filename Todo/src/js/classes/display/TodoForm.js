@@ -17,14 +17,16 @@ export default class TodoForm {
     }
 
     newTodo(todos) {
-        const todoContent = {
-            title: this.titleInput.value,
-            description: this.descriptionInput.value,
-            id: todos.length
+        if (this.titleInput.value !== "" && this.descriptionInput.value !== ""){
+            const todoContent = {
+                title: this.titleInput.value,
+                description: this.descriptionInput.value,
+                id: todos.length
+            }
+            todos.push(new Todo(todoContent))
+            this.titleInput.value = ""
+            this.descriptionInput.value = ""
         }
-        todos.push(new Todo(todoContent))
-        this.titleInput.value = ""
-        this.descriptionInput.value = ""
     }
 
 }

@@ -4,49 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Definitive Daleale Todo App</title>
-
     <link href="./css/output.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/28c39bdcf4.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bg-slate-100 h-dvh grid place-items-center">
 
-    <main id="container">
-        <h1 class="text-4xl text-cyan-600 m-2">daleale's Todo App</h1>
+    <main id="container" class="flex flex-col w-2/3 max-w-96 h-auto gap-3">
+        <header>
+            <h1 class="text-4xl font-semibold text-cyan-900 m-2 text-center">daleale's Todo App</h1>
+        </header>
 
-        <article class="border-2 border-solid border-cyan-700 p-2 mb-2">
-            <section>
-                <input type="text" placeholder="Enter a title" id="todo-title">
-                <input type="text" placeholder="Enter a description" id="todo-description">
-                <button class="bg-orange-400 p-2" id="add-todo">add todo</button>
+        <form class="border-2 p-2 mb-2 flex flex-col gap-4">
+            <section class="flex flex-row justify-center gap-4">
+                <div class="flex flex-col items-center gap-1">
+                    <input type="text" placeholder="Enter a title" id="todo-title" required class="pl-2">
+                    <input type="text" placeholder="Enter a description" id="todo-description" required class="pl-2">
+                </div>
+                <div class="">
+                    <button class="h-full border-2 border-orange-400 p-2 text-orange-400 font-bold hover:bg-orange-400 hover:text-white transition" id="add-todo" type="submit">add todo</button>
+                </div>
             </section>
-            <section>
-                <select name="todo-filter" id="todo-filter">
+            <section class="flex justify-center">
+                <select name="todo-filter" id="todo-filter" class="p-2 bg-orange-300 text-white capitalize hover:cursor-pointer hover:bg-orange-400 transition">
                     <option value="all" selected>all</option>
                     <option value="completed">completed</option>
                     <option value="incompleted">incompleted</option>
                 </select>
             </section>
-        </article>
+        </form>
 
-        <article class="border-2 border-solid border-cyan-700 p-2">
-            <ul id="todo-list">
-                <!-- <li class="border-4 border-solid inline-block bg-fuchsia-200 border-fuchsia-400">
-                    <h2 class="text-xl font-semibold">task 1</h2>
-                    <p>Lorem ipsum dolor sit amet.</p>
+        <article class="border-2 p-2">
+            <ul id="todo-list" class="flex flex-col gap-1">
+                <li class="flex flex-row justify-between items-center p-1 border-2 bg-green-50 border-green-300">
+                    <h2 class="text-xl font-normal ml-2 hover:cursor-pointer hover:font-semibold hover:italic transition">task 1</h2>
+                    <!-- <p>Lorem ipsum dolor sit amet.</p> -->
                     <section>
-                        <button class="bg-green-400 p-2">completed</button>
-                        <button class="bg-yellow-400 p-2">edit</button>
-                        <button class="bg-red-400 p-2">delete</button>
+                        <button class="p-2 hover:scale-125 transition">
+                            <i class="fas fa-toggle-on text-green-500"></i>
+                        </button>
+                        <button class="p-2 hover:scale-125 transition">
+                            <i class="fa-regular fa-pen-to-square text-yellow-500"></i>
+                        </button>
+                        <button class="p-2 hover:scale-125 transition">
+                            <i class="fa-solid fa-trash text-red-400"></i>
+                        </button>
                     </section>
                 </li>
-                <li class="border-4 border-solid border-cyan-300 inline-block bg-cyan-100">
-                    <h2 class="text-xl font-semibold">task 2</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                <li class="flex flex-row justify-between items-center p-1 border-2 bg-cyan-50 border-cyan-300">
+                    <h2 class="text-xl font-normal ml-2 hover:cursor-pointer hover:font-semibold hover:italic transition">task 2</h2>
+                    <!-- <p>Lorem ipsum dolor sit amet consectetur.</p> -->
                     <section>
-                        <button class="bg-green-400 p-2">completed</button>
-                        <button class="bg-yellow-400 p-2">edit</button>
-                        <button class="bg-red-400 p-2">delete</button>
+                        <button class="p-2 hover:scale-125 transition">
+                            <i class="fas fa-toggle-off text-cyan-500"></i>
+                        </button>
+                        <button class="p-2 hover:scale-125 transition">
+                            <i class="fa-regular fa-pen-to-square text-yellow-500"></i>
+                        </button>
+                        <button class="p-2 hover:scale-125 transition">
+                            <i class="fa-solid fa-trash text-red-400"></i>
+                        </button>
                     </section>
-                </li> -->
+                </li>
             </ul>
         </article>
 
