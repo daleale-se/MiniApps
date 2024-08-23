@@ -11,7 +11,7 @@ export default class TodoManager {
         this.todoList = todoList
         this.storage = storage
         this.todoForm.listenFilter(this)
-        // this.todoForm.doFilter(this)
+        this.todoForm.doFilter(this)
     }
 
     newTodo() {

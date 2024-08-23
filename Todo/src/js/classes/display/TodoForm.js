@@ -4,7 +4,6 @@ export default class TodoForm {
 
     constructor() {
         this.titleInput = document.getElementById("todo-title")
-        this.descriptionInput = document.getElementById("todo-description")
         this.selectFilter = document.getElementById("todo-filter")
     }
 
@@ -17,15 +16,9 @@ export default class TodoForm {
     }
 
     newTodo(todos) {
-        if (this.titleInput.value !== "" && this.descriptionInput.value !== ""){
-            const todoContent = {
-                title: this.titleInput.value,
-                description: this.descriptionInput.value,
-                id: todos.length
-            }
-            todos.push(new Todo(todoContent))
+        if (this.titleInput.value !== ""){
+            todos.push(new Todo({ title: this.titleInput.value, id: todos.length }))
             this.titleInput.value = ""
-            this.descriptionInput.value = ""
         }
     }
 

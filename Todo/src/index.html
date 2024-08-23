@@ -16,13 +16,8 @@
 
         <form class="border-2 p-2 mb-2 flex flex-col gap-4">
             <section class="flex flex-row justify-center gap-4">
-                <div class="flex flex-col items-center gap-1">
-                    <input type="text" placeholder="Enter a title" id="todo-title" required class="pl-2">
-                    <input type="text" placeholder="Enter a description" id="todo-description" required class="pl-2">
-                </div>
-                <div class="">
-                    <button class="h-full border-2 border-orange-400 p-2 text-orange-400 font-bold hover:bg-orange-400 hover:text-white transition" id="add-todo" type="submit">add todo</button>
-                </div>
+                <input type="text" placeholder="Type a title" id="todo-title" required class="pl-2">               
+                <button class="h-full border-2 border-orange-400 p-2 text-orange-400 font-bold hover:bg-orange-400 hover:text-white transition capitalize" id="add-todo" type="submit">add todo</button>
             </section>
             <section class="flex justify-center">
                 <select name="todo-filter" id="todo-filter" class="p-2 bg-orange-300 text-white capitalize hover:cursor-pointer hover:bg-orange-400 transition">
@@ -33,11 +28,11 @@
             </section>
         </form>
 
-        <article class="border-2 p-2">
+        <article class="border-2 p-2 h-auto max-h-60 overflow-scroll">
             <ul id="todo-list" class="flex flex-col gap-1">
-                <li class="flex flex-row justify-between items-center p-1 border-2 bg-green-50 border-green-300">
+
+                <!-- <li class="flex flex-row justify-between items-center p-1 border-2 bg-green-50 border-green-300">
                     <h2 class="text-xl font-normal ml-2 hover:cursor-pointer hover:font-semibold hover:italic transition">task 1</h2>
-                    <!-- <p>Lorem ipsum dolor sit amet.</p> -->
                     <section>
                         <button class="p-2 hover:scale-125 transition">
                             <i class="fas fa-toggle-on text-green-500"></i>
@@ -50,9 +45,9 @@
                         </button>
                     </section>
                 </li>
+
                 <li class="flex flex-row justify-between items-center p-1 border-2 bg-cyan-50 border-cyan-300">
                     <h2 class="text-xl font-normal ml-2 hover:cursor-pointer hover:font-semibold hover:italic transition">task 2</h2>
-                    <!-- <p>Lorem ipsum dolor sit amet consectetur.</p> -->
                     <section>
                         <button class="p-2 hover:scale-125 transition">
                             <i class="fas fa-toggle-off text-cyan-500"></i>
@@ -64,12 +59,19 @@
                             <i class="fa-solid fa-trash text-red-400"></i>
                         </button>
                     </section>
-                </li>
+                </li> -->
+
             </ul>
         </article>
 
-        <article id="todo-edit-popup">
-
+        <article id="todo-edit-popup" class="bg-slate-600 absolute top-0 left-0 bg-opacity-30 w-dvw h-dvh hidden place-items-center">
+            <section class="relative bg-slate-100 opacity-100 px-10 py-8 flex flex-col items-center gap-4">
+                <button class="absolute top-1 right-2 text-slate-600" id="close-modal-button">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <input type="text" name="title" placeholder="New title" id="new-todo-title" required class="p-2">
+                <button class="h-full border-2 border-orange-400 p-2 text-orange-400 font-bold hover:bg-orange-400 hover:text-white transition capitalize" id="update-button">update</button>
+            </section>
         </article>
 
     </main>

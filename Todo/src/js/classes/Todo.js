@@ -1,8 +1,7 @@
 export default class Todo {
 
-    constructor({ title, description, completed = false, id }) {
+    constructor({ title, completed = false, id }) {
         this.title = title
-        this.description = description
         this.completed = completed
         this.id = id
     }
@@ -19,9 +18,8 @@ export default class Todo {
         return this.id === id
     }
 
-    edit({ title, description }) {
+    edit({ title }) {
         this.title = title
-        this.description = description
     }
 
     createCard(todoList, todoManager) {
@@ -31,7 +29,6 @@ export default class Todo {
     toObjectLiteral() {
         return {
             title: this.title,
-            description: this.description,
             completed: this.completed,
             id: this.id
         }

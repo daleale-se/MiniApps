@@ -9,27 +9,25 @@ export default class TodoList {
     
     createCard({ title, description, completed, id}, todoManager) {
         const todoLi = document.createElement("li")  
-        todoLi.className = `border-4 border-solid inline-block ${completed ? "bg-fuchsia-200 border-fuchsia-400" : "bg-cyan-100 border-cyan-300"}`
+        todoLi.className = `flex flex-row justify-between items-center p-1 border-2 hover:font-semibold hover:italic transition ${completed ? "bg-green-50 border-green-300" : "bg-cyan-50 border-cyan-300"}`
         const cardTitle = document.createElement("h2")
         cardTitle.textContent = title
-        cardTitle.className = "text-xl font-semibold"
-        const cardDescription = document.createElement("p")
-        cardDescription.textContent = description
+        cardTitle.className = "text-xl font-normal ml-2"
         const btnSection = document.createElement("section")
         const completedBtn = document.createElement("button")
-        completedBtn.textContent = "completed"
-        completedBtn.className = "bg-green-400 p-2"
+        completedBtn.innerHTML = `<i class="fas ${completed ? "fa-toggle-on text-green-500" : "fa-toggle-off text-cyan-500" }"></i>`
+        completedBtn.className = "p-2 hover:scale-125 transition"
         completedBtn.onclick = () => todoManager.completedTodo(id)
         const editBtn = document.createElement("button")
-        editBtn.innerText = "edit"
-        editBtn.className = "bg-yellow-400 p-2"
+        editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square text-yellow-500"></i>`
+        editBtn.className = "p-2 hover:scale-125 transition"
         editBtn.onclick = () =>  this.editPopup.displayPopup(todoManager, { title, description, id })
         const deleteBtn = document.createElement("button")
-        deleteBtn.innerText = "delete"
-        deleteBtn.className = "bg-red-400 p-2"
+        deleteBtn.innerHTML = `<i class="fa-solid fa-trash text-red-400"></i>`
+        deleteBtn.className = "p-2 hover:scale-125 transition"
         deleteBtn.onclick = () => todoManager.removeTodo(id)
         btnSection.append(completedBtn, editBtn, deleteBtn)
-        todoLi.append(cardTitle, cardDescription, btnSection)
+        todoLi.append(cardTitle, btnSection)
         this.todoContainer.appendChild(todoLi)
     }
 
