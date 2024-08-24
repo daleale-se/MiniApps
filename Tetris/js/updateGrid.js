@@ -15,16 +15,6 @@ const updateGrid = (grid, shape, [ xPos, yPos ]) => {
         i++
     }
 
-    // for (let i = 0; i < shapeHeight(shape); i++) {
-    //     for (let j = 0; j < shapeWidth(shape); j++) {
-    //         if (yPos - i > -1) { // && yPos - i < 20
-    //             if (shape[shapeHeight(shape) - 1 - i][j] !== "_") {
-    //                 newGrid[yPos - i][xPos + j] = shape[shapeHeight(shape) - 1 - i][j]
-    //             }
-    //         } 
-    //     }
-    // }
-    
     return newGrid
 
 }

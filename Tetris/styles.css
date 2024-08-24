@@ -5,31 +5,31 @@
 }
 
 body {
-    background-color: rgb(73, 106, 108);
+    background-color: #0C120C;
 }
 
 .red {
-    background-color: red;
+    background-color: #6E0D25;
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: #FFFFB3;
 }
 
 .purple {
-    background-color: purple;
+    background-color: #DCAB6B;
 }
 
 .blue {
-    background-color: blue;
+    background-color: #774E24;
 }
 
 .green {
-    background-color: green;
+    background-color: #6A381F;
 }
 
 .black {
-    background-color: black;
+    background-color: #1E1E24;
 }
 
 .block {
@@ -53,12 +53,58 @@ audio {
 main {
     display: flex;
     gap: 1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #grid {
     margin: 1rem;
 }
 
-#score-container {
+.game-info {
     margin: auto 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.current-score {
+    color: #EDE7D9;
+    font-weight: 600;
+    font-size: x-large;
+}
+
+.highscore {
+    color:#A49694;
+    font-weight: 800;
+    font-size: xx-large;
+}
+
+.highscore, .current-score {
+    text-transform: capitalize;
+}
+
+.hidden {
+    display: none;
+}
+
+.game-buttons button {
+    font-weight: 700;
+    font-variant: small-caps;
+    background-color: #736B60;
+    color: #EDE7D9;
+    border: none;
+    transition: all ease-in-out .1s;
+
+    &:hover {
+        background-color: #EDE7D9;
+        color: #1E1E24; 
+        cursor: pointer;   
+    }
+}
+
+.gameover {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #D5A021;
 }

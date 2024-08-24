@@ -9,12 +9,23 @@
 </head>
 <body>
     <main>
-        <section id="grid">
+        <article id="grid">
             
-        </section>
-        <section id="score-container">
-            <h1>score: <span id="score">0<span></h1>
-        </section>
+        </article>
+        <article class="game-info">
+            <section>
+                <p class="gameover hidden">gameover</p>
+            </section>
+            <section class="game-buttons">
+                <button id="start-button">start</button>
+                <button class="hidden" id="restart-button">restart</button>
+                <button class="hidden" id="pause-button">pause(p)</button>
+            </section>
+            <section class="hidden" id="score-container">
+                <p class="highscore">highscore: <span id="highscore">0</span></p>
+                <p class="current-score">score: <span id="score">0</span></p>
+            </section>
+        </article>
     </main>
     
     <audio autoplay loop>

@@ -3,3 +3,6 @@
 - linecount (score) [v]
 - rotate close wall & shapes [v]
 - clean app.js [x]
+- next shape [x]
+- start, restart & pause [v]
+- show and save highscore in localStorage [v]
