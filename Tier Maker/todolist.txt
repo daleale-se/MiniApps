@@ -1,4 +1,5 @@
-- modular el codigo
+- modular el codigo 
 - guardar/recuperar en localStorage lo que tiene el usuario en es momento
 - tener tierlist preparados 
 - filtrar por tipo de archivo
+- no se repita imagen [v]
