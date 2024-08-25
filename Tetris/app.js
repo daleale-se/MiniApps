@@ -14,6 +14,9 @@ import clearCompleteRows from "./js/clearCompleteRows.js"
 import movementsToLeft from "./js/movementsToLeft.js"
 import canGoToLeft from "./js/canGoToLeft.js"
 import scoreCompleteRows from "./js/scoreCompleteRows.js"
+import shapeHeight from "./js/shapeHeight.js"
+import shapeWidth from "./js/shapeWidth.js"
+import buildRow from "./js/display/buildRow.js"
 
 const updateButtons = () => {
     const startButton = document.getElementById("start-button")
@@ -35,6 +38,15 @@ const showHighscore = (score) => {
     highscoreText.textContent = prevHighscore < score ? score : prevHighscore
 }
 
+const showNextShape = (nextShape) => {
+    const shapePrev = document.getElementById("shape-prev")
+    shapePrev.innerHTML = ""
+    const rows = nextShape.map(row => buildRow(row))
+    for (const row of rows) {
+        shapePrev.appendChild(row)
+    }
+}
+
 const saveHighscoreToLocalStorage = (score) => {
     const hightscore = JSON.parse(localStorage.getItem("tetris-highscore")) ?? 0
     if (hightscore < score) {
@@ -53,6 +65,8 @@ const newGame = () => {
     let position = [4, 0]
     let score = 0
     let pausedGame = false
+    let nextShape = buildTetromino(randomLetter())
+    showNextShape(nextShape)
 
     const handleKeyControl = (e) => {
         if (e.key === "p") {
@@ -84,7 +98,9 @@ const newGame = () => {
                 score = scoreCompleteRows(grid, score)
                 grid = clearCompleteRows(grid)
                 position = [4, 0]
-                shape = buildTetromino(randomLetter())
+                shape = nextShape
+                nextShape = buildTetromino(randomLetter())
+                showNextShape(nextShape)
             }
             showGrid(updateGrid(grid, shape, position));
             showScore(score)
@@ -123,7 +139,9 @@ const newGame = () => {
                     score = scoreCompleteRows(grid, score)
                     grid = clearCompleteRows(grid, position)
                     position = [4, 0]
-                    shape = buildTetromino(randomLetter())
+                    shape = nextShape
+                    nextShape = buildTetromino(randomLetter())
+                    showNextShape(nextShape)
                 }
             }
         }, 50)
@@ -156,6 +174,7 @@ const newGame = () => {
 const startGame = () => {
     updateButtons()
     showScoreContainer()
+    document.querySelector(".next-shape").classList.remove("hidden")
     newGame()
 }
 
