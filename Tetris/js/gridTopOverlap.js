@@ -1,5 +1,5 @@
 const gridTopOverlap = (grid) => {
-    return grid[0][4] !== "_" 
+    return grid[1][4] !== "_" 
 }
 
 export default gridTopOverlap

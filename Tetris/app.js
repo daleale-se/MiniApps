@@ -14,8 +14,6 @@ import clearCompleteRows from "./js/clearCompleteRows.js"
 import movementsToLeft from "./js/movementsToLeft.js"
 import canGoToLeft from "./js/canGoToLeft.js"
 import scoreCompleteRows from "./js/scoreCompleteRows.js"
-import shapeHeight from "./js/shapeHeight.js"
-import shapeWidth from "./js/shapeWidth.js"
 import buildRow from "./js/display/buildRow.js"
 
 const updateButtons = () => {
@@ -27,18 +25,13 @@ const updateButtons = () => {
     pauseButton.classList.remove("hidden")
 }
 
-const showScoreContainer = () => {
-    const buttonContainer = document.getElementById("score-container")
-    buttonContainer.classList.remove("hidden")
-}
-
 const showHighscore = (score) => {
     const highscoreText = document.getElementById("highscore")
     const prevHighscore = JSON.parse(localStorage.getItem("tetris-highscore")) ?? 0
     highscoreText.textContent = prevHighscore < score ? score : prevHighscore
 }
 
-const showNextShape = (nextShape) => {
+const updateNextShape = (nextShape) => {
     const shapePrev = document.getElementById("shape-prev")
     shapePrev.innerHTML = ""
     const rows = nextShape.map(row => buildRow(row))
@@ -54,24 +47,36 @@ const saveHighscoreToLocalStorage = (score) => {
     }
 }
 
-const showGameOver = () => {
-    const gameOverText = document.querySelector(".gameover")
-    gameOverText.classList.remove("hidden")
-}
-
-const newGame = () => {
+const startGame = () => {
     let grid = createGrid()
     let shape = buildTetromino(randomLetter())
     let position = [4, 0]
     let score = 0
     let pausedGame = false
     let nextShape = buildTetromino(randomLetter())
-    showNextShape(nextShape)
+    
+    updateNextShape(nextShape)
 
-    const handleKeyControl = (e) => {
+    const updateGameInfo = () => {
+        showGrid(updateGrid(grid, shape, position));
+        showScore(score)
+        showHighscore(score)
+        saveHighscoreToLocalStorage(score)
+    }
+
+    const nextGuess = () => {
+        grid = updateGrid(grid, shape, position)
+        score = scoreCompleteRows(grid, score)
+        grid = clearCompleteRows(grid)
+        position = [4, 0]
+        shape = nextShape
+        nextShape = buildTetromino(randomLetter())
+        updateNextShape(nextShape)
+    }
+
+    const handleShapeControl = (e) => {
         if (e.key === "p") {
-            console.log("paused");
-            pausedGame = !pausedGame
+            pauseGame()
         }
         if (!pausedGame) {            
             if (e.key === "j") {
@@ -85,27 +90,15 @@ const newGame = () => {
             } else if (e.key === "i") {
                 const rotatedShape = rotateShapeToLeft(shape)
                 const xPosFixed = movementsToLeft(grid, rotatedShape, position)
-                if (xPosFixed === 0) {
-                    shape = rotatedShape
-                } else if (canGoToLeft(grid, rotatedShape, [position[0] - xPosFixed, position[1]])) {
+                if (xPosFixed > 0 && canGoToLeft(grid, rotatedShape, [position[0] - xPosFixed, position[1]])) {
                     position = [position[0] - xPosFixed, position[1]]
-                    shape = rotatedShape
-                }    
+                }
+                shape = rotatedShape
             } else if (e.key === "k") {
                 position = dropShape(grid, shape, position)
-    
-                grid = updateGrid(grid, shape, position)
-                score = scoreCompleteRows(grid, score)
-                grid = clearCompleteRows(grid)
-                position = [4, 0]
-                shape = nextShape
-                nextShape = buildTetromino(randomLetter())
-                showNextShape(nextShape)
+                nextGuess()
             }
-            showGrid(updateGrid(grid, shape, position));
-            showScore(score)
-            showHighscore(score)
-            saveHighscoreToLocalStorage(score)
+            updateGameInfo()
         }
     }
 
@@ -114,40 +107,27 @@ const newGame = () => {
             if (!pausedGame) {
                 position = [position[0], position[1] + 1]
             }
-        }, 300)
+        }, 400)
     }
 
-    let updateFallingShapeInterval = fallingShapeInterval()
-
     const gridInterval = () => {
-        window.addEventListener("keypress", handleKeyControl)
+        window.addEventListener("keypress", handleShapeControl)
         return setInterval(() => {
             if (!pausedGame) {
-                showGrid(updateGrid(grid, shape, position));
-                showScore(score)
-                showHighscore(score)
-                saveHighscoreToLocalStorage(score)
                 if (!downCollision(grid, shape, position)) {
-                    grid = updateGrid(grid, shape, position)
                     if (gridTopOverlap(grid)) {
                         updateFallingShapeInterval = clearInterval(updateFallingShapeInterval)
                         updateGridInterval = clearInterval(updateGridInterval)
-                        window.removeEventListener("keypress", handleKeyControl)
-                        showGameOver()
+                        window.removeEventListener("keypress", handleShapeControl)
+                        document.querySelector(".gameover").classList.remove("hidden")
                         document.getElementById("pause-button").classList.add("hidden")
                     }
-                    score = scoreCompleteRows(grid, score)
-                    grid = clearCompleteRows(grid, position)
-                    position = [4, 0]
-                    shape = nextShape
-                    nextShape = buildTetromino(randomLetter())
-                    showNextShape(nextShape)
+                    nextGuess()            
                 }
+                updateGameInfo()
             }
         }, 50)
     }
-
-    let updateGridInterval = gridInterval()
 
     const restartGame = () => {
         grid = createGrid()
@@ -155,7 +135,7 @@ const newGame = () => {
         position = [4, 0]
         score = 0
         pausedGame = false
-        if (typeof updateGridInterval === "undefined" && typeof updateFallingShapeInterval === "undefined") {
+        if (updateGridInterval === undefined && updateFallingShapeInterval === undefined) {
             updateGridInterval = gridInterval()
             updateFallingShapeInterval = fallingShapeInterval()
         }
@@ -166,21 +146,24 @@ const newGame = () => {
     const pauseGame = () => {
         pausedGame = !pausedGame
     }
+    
+    let updateGridInterval = gridInterval()
+    let updateFallingShapeInterval = fallingShapeInterval()
 
     document.getElementById("restart-button").addEventListener("click", restartGame)
     document.getElementById("pause-button").addEventListener("click", pauseGame)
 }
 
-const startGame = () => {
+const newGame = () => {
     updateButtons()
-    showScoreContainer()
+    document.getElementById("score-container").classList.remove("hidden")
     document.querySelector(".next-shape").classList.remove("hidden")
-    newGame()
+    startGame()
 }
 
 const main = () => {
     showGrid(createGrid())
-    document.getElementById("start-button").addEventListener("click", startGame)
+    document.getElementById("start-button").addEventListener("click", newGame)
 }
 
 main()
