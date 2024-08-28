@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+img.logo {
+    width: 16rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    background-color: #101010;
+    padding: .75rem;
+}
+
+.menu-item a {
+    font-size: 1.3rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #f8f8f8;
+    transition: all .5s ease;
+    padding: 1rem 5px;
+}
+
+.menu-item a:hover {
+    color: #484848;
+    background-color: #f8f8f8;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+header .logo {
+    margin: 1rem 0;
+}
+
+h1 {
+    font-size: 3rem;
+    text-transform: capitalize;
+    margin: 1rem 0;
+}
+
+.presentation article {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #101010;
+    padding: 1.5rem;
+}
+
+.presentation article div {
+    max-width: 25rem;
+    color: #f8f8f8;
+}
+
+p, h1, h2 {
+    &::selection {
+        color: #101010;
+        background-color: #efefef;
+    }
+}
+
+.presentation article img {
+    max-width: 20rem;
+    transition: all 1s ease-in-out;
+    
+}
+
+.presentation article img:hover {
+    transform: scale(1.03);
+}
+
+.presentation, .strengths {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+h1 ~ p::first-letter {
+    font-weight: 800;
+    color: lightgrey;
+    font-size: 1.2rem;
+}
+
+.strengths {
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.strengths article {
+    max-width: 15rem;
+    border: solid 10px #101010;
+    padding: 1rem;
+    transition: all .2s ease-in;
+}
+
+.strengths article:hover {
+    background-color: #101010;
+    color: #efefef;
+    box-shadow: 0 0 2px 1px #101010;
+}
+
+.strengths article h2 {
+    margin-bottom: .5rem;
+}
+
+.strengths article:nth-child(3) {
+    text-align: right;
+}
+
+footer {
+    background-color: #101010;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25%;
+    padding: 1rem 0;
+}
+
+footer .logo {
+    padding: 1rem 0;
+}
+
+.copyright {
+    color: #efefef;
+    font-weight: bolder;
+    font-size: .7rem;
+    text-transform: uppercase;
+}
