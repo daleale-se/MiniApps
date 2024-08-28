@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.menu-item a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all .1s ease;
+}
+
+.menu-item a:hover {
+    text-decoration: underline;
+}
+
+.logo {
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+header .logo {
+    margin: 1rem 0;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.presentation, .subtexts {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.presentation article {
+    max-width: 30rem;
+}
+
+h1 ~ p::first-letter {
+    font-weight: 800;
+    color: darkslategrey;
+    font-size: 1.2rem;
+}
+
+.subtexts {
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.subtexts article {
+    max-width: 15rem;
+    text-align: center;
+}
+
+footer {
+    margin: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25%;
+}
+
+.copyright {
+    font-variant: small-caps;
+    font-weight: bolder;
+}
