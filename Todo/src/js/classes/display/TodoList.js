@@ -19,15 +19,22 @@ export default class TodoList {
         completedBtn.className = "p-2 hover:scale-125 transition"
         completedBtn.onclick = () => todoManager.completedTodo(id)
         const editBtn = document.createElement("button")
-        editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square text-yellow-500"></i>`
         editBtn.className = "p-2 hover:scale-125 transition"
         editBtn.onclick = () =>  this.editPopup.displayPopup(todoManager, { title, description, id })
         const deleteBtn = document.createElement("button")
-        deleteBtn.innerHTML = `<i class="fa-solid fa-trash text-red-400"></i>`
         deleteBtn.className = "p-2 hover:scale-125 transition"
         deleteBtn.onclick = () => todoManager.removeTodo(id)
         btnSection.append(completedBtn, editBtn, deleteBtn)
         todoLi.append(cardTitle, btnSection)
+        if (completed) {
+            deleteBtn.innerHTML = `<i class="fa-solid fa-trash text-red-400"></i>`
+            editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square text-slate-400"></i>`
+            editBtn.setAttribute("disabled", true)
+        } else {
+            deleteBtn.innerHTML = `<i class="fa-solid fa-trash text-slate-400"></i>`
+            editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square text-yellow-500"></i>`
+            deleteBtn.setAttribute("disabled", true)
+        }
         this.todoContainer.appendChild(todoLi)
     }
 

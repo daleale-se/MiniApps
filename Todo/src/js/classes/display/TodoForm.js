@@ -1,4 +1,5 @@
 import Todo from "../Todo.js"
+import randomId from "../../idGenerator.js"
 
 export default class TodoForm {
 
@@ -17,7 +18,7 @@ export default class TodoForm {
 
     newTodo(todos) {
         if (this.titleInput.value !== ""){
-            todos.push(new Todo({ title: this.titleInput.value, id: todos.length }))
+            todos.push(new Todo({ title: this.titleInput.value, id: randomId()}))
             this.titleInput.value = ""
         }
     }
