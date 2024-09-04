@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        main {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 3rem);
+            grid-template-rows: repeat(6, 3rem);
+            gap: 2px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            
+            button {
+                border: none; 
+                font-size: 1rem;
+                font-weight: 500;  
+                cursor: pointer;
+            }
+        }
+
+        .display {
+            grid-column: 1/ span 4;
+            background-color: rgb(193, 214, 214);
+        }
+
+        .all-clear {
+            grid-column: 1/ span 2;
+            text-transform: uppercase;
+        }
+
+        .equal {
+            grid-column: 3/ span 2;
+        }
+
+        .delete {
+            text-transform: uppercase;
+        }
+
+    </style>
+
+</head>
+<body>
+    <main>
+        <div class="calculator">
+            <div class="display">
+                <span>212</span>
+                <span>314</span>
+            </div>
+            <button class="all-clear">ac</button>
+            <button class="delete">del</button>
+            <button>%</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>*</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>+</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>-</button>
+            <button>.</button>
+            <button>0</button>
+            <button class="equal">=</button>
+        </div>
+    </main>
+    <script defer>
+
+        const isNumeric = string => /^[+-]?\d+(\.\d+)?$/.test(string)
+        const isOperation = string => /[%+\-*]/.test(string);
+
+        const calculatorLogic = () => {
+            let prev = "0"
+            let currentOperator = "+"
+            let total = 0
+
+            return {
+                changeOperator: (operator) =>  {
+                    currentOperator = operator
+                },
+                runOperation: (number) => {
+                    switch(currentOperator) {
+                        case "+": total += number; break
+                        case "-": total -= number; break
+                        case "*": total *= number; break
+                        case "/": total /= number; break
+                    }
+                },
+                getTotal: () => {
+                    console.log(total, currentOperator)
+                }
+            }
+        }
+
+        const { changeOperator, getTotal, runOperation } = calculatorLogic()
+        getTotal()
+        const buttons = document.querySelectorAll("button")
+        buttons.forEach(btn => btn.addEventListener("click", (e) => {
+            if (isNumeric(btn.innerText)) {
+                runOperation(Number(btn.innerText))
+            } else if (isOperation(btn.innerText)) {
+                changeOperator(btn.innerText)
+            }
+            getTotal()
+        }))
+    </script>
+</body>
+</html>
