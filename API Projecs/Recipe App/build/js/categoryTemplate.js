@@ -1,5 +1,4 @@
-import { THE_MEAL_API } from "./constants";
-const createCategoryTemplate = (category) => {
+const categoryTemplate = (category) => {
     const categoryItem = document.createElement("li");
     const categoryAnchor = document.createElement("a");
     categoryAnchor.href = "pages/category.html";
@@ -14,17 +13,4 @@ const createCategoryTemplate = (category) => {
     categoryItem.appendChild(categoryAnchor);
     return categoryItem;
 };
-const showCategories = () => {
-    fetch(`${THE_MEAL_API}/categories.php`)
-        .then(res => res.json())
-        .then(data => {
-        const categoriesList = document.querySelector(".categories");
-        const categoriesTemplates = data["categories"].map((category) => createCategoryTemplate(category));
-        categoriesTemplates.forEach(categoryElement => categoriesList.appendChild(categoryElement));
-    })
-        .catch(err => console.log(err));
-};
-const main = () => {
-    showCategories();
-};
-main();
+export default categoryTemplate;
