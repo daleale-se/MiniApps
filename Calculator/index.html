@@ -98,8 +98,8 @@
     <main>
         <div class="calculator">
             <div class="display">
-                <p><span class="previous">22</span> <span class="operator">+</span></p>
-                <p class="current">33</p>
+                <p><span class="previous"></span> <span class="operator"></span></p>
+                <p class="current"></p>
             </div>
             <button class="all-clear">ac</button>
             <button class="delete">del</button>
@@ -129,11 +129,12 @@
             document.querySelector(".current").textContent = currentNumber
         }
 
-        const isNumeric = string => /^[+-]?\d+(\.\d+)?$/.test(string)
-        const isOperation = string => /[+\-*/]/.test(string);
-        const isEqual = string => string === "="
-        const isAllClear = string => string === "AC"
-        const isDelete = string => string === "DEL"
+        const isNumeric = str => /^[+-]?\d+(\.\d+)?$/.test(str)
+        const isOperation = str => /[+\-*/]/.test(str);
+        const isEqual = str => str === "="
+        const isAllClear = str => str === "AC"
+        const isDelete = str => str === "DEL"
+        const isDot = str => str === "."
 
         const calculatorLogic = () => {
             let currentOperator = ""
@@ -143,12 +144,15 @@
 
             return {
                 changeOperator: (operator) =>  {
-                    if (currentNumber !== "") {
-                        currentOperator = operator
-                        prevNumber = currentNumber
-                        currentNumber = ""
-                    } else if (prevNumber !== "") {
-                        currentOperator = operator
+
+                    if (currentNumber !== ".") {
+                        if (currentNumber !== "") {
+                            currentOperator = operator
+                            prevNumber = currentNumber
+                            currentNumber = ""
+                        } else if (prevNumber !== "") {
+                            currentOperator = operator
+                        }
                     }
                 },
                 runOperation: () => {
@@ -158,12 +162,17 @@
                         case "*": currentNumber = String(Number(prevNumber) * Number(currentNumber)); break
                         case "/": currentNumber = String(Number(prevNumber) / Number(currentNumber)); break
                     }
+                    if (currentNumber.includes(".") && currentNumber.split(".")[1].length > 5) {
+                        currentNumber = Number(currentNumber).toFixed(5)
+                    }
                     prevNumber = ""
                     currentOperator = ""
                 },
                 getData: () => ({ currentOperator, prevNumber, currentNumber }),
                 concatDigit: (numberStr) => {
-                    currentNumber += numberStr
+                    if (!(currentNumber.length > 12)) {
+                        currentNumber += numberStr
+                    } 
                 },
                 clearDigits: () => {
                     currentOperator = ""
@@ -174,11 +183,20 @@
                     if (currentNumber.length > 0) {
                         currentNumber = currentNumber.slice(0, -1)
                     }
+                },
+                numberIsFloat: () => {
+                    return currentNumber.includes(".")
                 }
             }
         }
 
-        const { runOperation, deleteLastDigit, clearDigits, concatDigit, changeOperator, getData } = calculatorLogic()
+        const { runOperation, 
+            deleteLastDigit, 
+            clearDigits, 
+            concatDigit, 
+            changeOperator, 
+            getData, 
+            numberIsFloat } = calculatorLogic()
         
         updateDisplay(getData())
         const buttons = document.querySelectorAll("button")
@@ -194,7 +212,9 @@
             } else if (isDelete(btn.innerText)) {
                 deleteLastDigit()
             } else if (isDot(btn.innerText)) {
-
+                if (!numberIsFloat()) {
+                    concatDigit(btn.innerText)
+                }
             }
             updateDisplay(getData())
         }))
