@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <script src="https://kit.fontawesome.com/28c39bdcf4.js" crossorigin="anonymous"></script>
     <style>
 
         * {
@@ -11,6 +12,7 @@
             padding: 0;
             border: none;
             box-sizing: border-box;
+            font-family: sans-serif;
         }
 
         body {
@@ -25,6 +27,11 @@
             align-items: center;
         }
 
+        .container {
+            display: flex;
+            gap: 1.5rem;
+        }
+
         .calculator {
             background-color: rgb(112, 115, 115);
             display: grid;
@@ -32,7 +39,6 @@
             grid-template-columns: repeat(4, 4rem);
             grid-template-rows: 5rem repeat(5, 4rem);
             gap: 2px;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             
             button {
                 border: none; 
@@ -78,6 +84,37 @@
             }
         }
 
+        .results {
+            background-color: rgb(175, 176, 176);
+            padding: 1rem;
+
+            ul {
+                background-color: rgb(79, 79, 79);
+                display: flex;
+                flex-direction: column;
+                gap: .25rem;
+                overflow-y: scroll;
+
+                li {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 2rem;
+                    background-color: rgb(123, 122, 122);
+                    padding: .75rem;
+                    
+                    span {
+                        color: rgb(237, 237, 235);
+                        font-weight: 600;
+                    }
+
+                    button {
+                        padding: .5rem;
+                    }
+                }
+            }
+        }
+
         .all-clear {
             grid-column: 1/ span 2;
             text-transform: uppercase;
@@ -91,35 +128,53 @@
             text-transform: uppercase;
         }
 
+        ul {
+            list-style: none;
+        }
+
     </style>
 
 </head>
 <body>
     <main>
-        <div class="calculator">
-            <div class="display">
-                <p><span class="previous"></span> <span class="operator"></span></p>
-                <p class="current"></p>
+        <section class="container">
+            <div class="calculator">
+                <div class="display">
+                    <p><span class="previous"></span> <span class="operator"></span></p>
+                    <p class="current"></p>
+                </div>
+                <button class="all-clear">ac</button>
+                <button class="delete">del</button>
+                <button>/</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>*</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>+</button>
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>-</button>
+                <button>.</button>
+                <button>0</button>
+                <button class="equal">=</button>
             </div>
-            <button class="all-clear">ac</button>
-            <button class="delete">del</button>
-            <button>/</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>*</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>+</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>-</button>
-            <button>.</button>
-            <button>0</button>
-            <button class="equal">=</button>
-        </div>
+            <div class="results">
+                <ul class="calculator-storage">
+                    <!-- <li>
+                        <span>2333</span>
+                        <button>copy</button>
+                    </li>
+                    <li>
+                        <span>2333</span>
+                        <button>copy</button>
+                    </li> -->
+                </ul>
+            </div>
+        </section>
     </main>
     <script defer>
 
@@ -127,6 +182,35 @@
             document.querySelector(".operator").textContent = currentOperator
             document.querySelector(".previous").textContent = prevNumber
             document.querySelector(".current").textContent = currentNumber
+        }
+
+        const createTemplateResult = ({number, id}) => {
+            return `<li id=${id}>
+                        <span>${number}</span>
+                        <div>
+                            <button class="copy"><i class="fa-regular fa-copy"></i></button>
+                            <button class="remove"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </li>`
+        }
+
+        const saveLocalStorage = (number) => {
+            const data = JSON.parse(localStorage.getItem("calculator-storage")) ?? []
+            data.push({ number, id: new Date().getTime() })
+            localStorage.setItem("calculator-storage", JSON.stringify(data))
+        }
+
+        const removeIdFromStorage = (id) => {
+            const data = JSON.parse(localStorage.getItem("calculator-storage"))
+            const newData = data.filter(result => result.id !== id)
+            localStorage.setItem("calculator-storage", JSON.stringify(newData))
+        }
+
+        const showResultsFromStorage = () => {
+            const storageDiv = document.querySelector(".calculator-storage")
+            storageDiv.childNodes.forEach(child => child.remove())
+            const data = JSON.parse(localStorage.getItem("calculator-storage")) ?? []
+            storageDiv.innerHTML = data.map(dataProps => createTemplateResult(dataProps)).join("")
         }
 
         const isNumeric = str => /^[+-]?\d+(\.\d+)?$/.test(str)
@@ -167,12 +251,20 @@
                     }
                     prevNumber = ""
                     currentOperator = ""
+                    saveLocalStorage(currentNumber)
+                    showResultsFromStorage()
                 },
                 getData: () => ({ currentOperator, prevNumber, currentNumber }),
                 concatDigit: (numberStr) => {
-                    if (!(currentNumber.length > 12)) {
-                        currentNumber += numberStr
-                    } 
+                    if (currentNumber !== "0") {
+                        if (!currentNumber.includes(".") && !(currentNumber.length > 12)) {
+                            currentNumber += numberStr
+                        } else if (currentNumber.includes(".") && !(currentNumber.split(".")[1].length > 5)) {
+                            currentNumber += numberStr
+                        }
+                    } else if (numberStr !== "0") {
+                        currentNumber = numberStr
+                    }
                 },
                 clearDigits: () => {
                     currentOperator = ""
@@ -199,6 +291,7 @@
             numberIsFloat } = calculatorLogic()
         
         updateDisplay(getData())
+        showResultsFromStorage()
         const buttons = document.querySelectorAll("button")
         buttons.forEach(btn => btn.addEventListener("click", (e) => {
             if (isNumeric(btn.innerText)) {
@@ -218,6 +311,10 @@
             }
             updateDisplay(getData())
         }))
+
+        document.querySelector(".calculator-storage").addEventListener("click", (event) => {
+            console.log(event.target)
+        })
     </script>
 </body>
 </html>
