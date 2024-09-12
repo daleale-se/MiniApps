@@ -1,0 +1,138 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: rgb(53, 52, 52);
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.calculator {
+    background-color: rgb(112, 115, 115);
+    display: grid;
+    padding: .5rem;
+    grid-template-columns: repeat(4, 4rem);
+    grid-template-rows: 5rem repeat(5, 4rem);
+    gap: 2px;
+    
+    button {
+        border: none; 
+        font-size: 1rem;
+        font-weight: 600;  
+        cursor: pointer;
+        background-color: rgb(233, 230, 230);
+
+        &:hover {
+            background-color: rgb(153, 203, 220);
+            color: rgb(254, 254, 254);
+        }
+    }
+}
+
+.display {
+    grid-column: 1/ span 4;
+    background-color: rgb(224, 224, 224);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    
+    p {
+        margin-right: 1rem;
+        font-weight: 800;
+    }
+
+    :first-child {
+        height: 1.2rem;
+    }
+
+    :last-child {
+        height: 2rem;
+    }
+
+    .previous {
+        font-size: 1.2rem;
+    }
+
+    .current {
+        font-size: 2rem;
+    }
+}
+
+.history {
+    background-color: rgb(175, 176, 176);
+    padding: 1rem;
+
+    h3 {
+        margin-bottom: .75rem;
+        text-transform: capitalize;
+    }
+    
+    ul {
+        background-color: rgb(79, 79, 79);
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        overflow-y: scroll;
+        max-height: 22rem;
+        width: 16rem;
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            background-color: rgb(123, 122, 122);
+            padding: .75rem;
+            
+            span {
+                color: rgb(237, 237, 235);
+                font-weight: 600;
+            }
+
+            button {
+                padding: .5rem;
+            }
+        }
+    }
+}
+
+.warning {
+    font-size: 1.25rem;
+    font-family: monospace;
+    font-style: italic;
+}
+
+.all-clear {
+    grid-column: 1/ span 2;
+    text-transform: uppercase;
+}
+
+.equal {
+    grid-column: 3/ span 2;
+}
+
+.delete {
+    text-transform: uppercase;
+}
+
+ul {
+    list-style: none;
+}
