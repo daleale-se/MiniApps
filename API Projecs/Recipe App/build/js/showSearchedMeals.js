@@ -1,4 +1,5 @@
 import cardMealTemplate from "./cardMealTemplate.js";
+
 const showSearchedMeals = (meals) => {
     const mealsList = document.querySelector(".meals-container");
     while (mealsList.firstChild) {
@@ -9,4 +10,5 @@ const showSearchedMeals = (meals) => {
     categoryContainer.classList.add("hidden");
     mealsList.classList.remove("hidden");
 };
+
 export default showSearchedMeals;

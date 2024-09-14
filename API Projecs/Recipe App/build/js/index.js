@@ -1,9 +1,9 @@
-import loadHeader from "./loadHeader.js";
+import showCategories from "./showCategories.js";
 import addingEvents from "./searchInput.js";
-import showMeals from "./showMeals.js";
+import loadHeader from "./loadHeader.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
   await loadHeader()
-  showMeals();
+  showCategories();
   addingEvents();
 });

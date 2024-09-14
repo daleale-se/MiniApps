@@ -1,7 +1,7 @@
 const categoryTemplate = (category) => {
     const categoryItem = document.createElement("li");
     const categoryAnchor = document.createElement("a");
-    categoryAnchor.href = "pages/category.html";
+    categoryAnchor.href = "category.html";
     categoryAnchor.className = "d-inline-flex align-items-center bg-danger rounded-2 w-100";
     categoryAnchor.addEventListener("click", () => {
         sessionStorage.setItem("category", JSON.stringify(category.strCategory));
@@ -13,4 +13,5 @@ const categoryTemplate = (category) => {
     categoryItem.appendChild(categoryAnchor);
     return categoryItem;
 };
+
 export default categoryTemplate;

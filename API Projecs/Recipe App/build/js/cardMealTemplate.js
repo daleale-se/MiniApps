@@ -1,4 +1,5 @@
 import showRecipe from "./showRecipe.js";
+
 const cardMealTemplate = (meal) => {
     const article = document.createElement("article");
     article.addEventListener("click", () => showRecipe(meal.idMeal));
@@ -8,4 +9,5 @@ const cardMealTemplate = (meal) => {
     `;
     return article;
 };
+
 export default cardMealTemplate;

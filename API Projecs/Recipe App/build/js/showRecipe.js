@@ -1,4 +1,5 @@
 import { THE_MEAL_API } from "./constants.js";
+
 const showRecipe = (id) => {
     fetch(`${THE_MEAL_API}/lookup.php?i=${id}`)
         .then(res => res.json())
@@ -20,4 +21,5 @@ const showRecipe = (id) => {
     })
         .catch(err => console.log(err));
 };
+
 export default showRecipe;
