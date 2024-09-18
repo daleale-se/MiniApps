@@ -1,11 +1,10 @@
 import { THE_MEAL_API } from "./constants.js";
 import displayMeals from "./displayMeals.js";
 
-const showMeals = () => {
-  const category = JSON.parse(sessionStorage.getItem("category"));
+const showMeals = (category) => {
   fetch(`${THE_MEAL_API}/filter.php?c=${category}`)
     .then((res) => res.json())
-    .then((data) => displayMeals(data.meals, category));
+    .then((data) => displayMeals(data.meals, category))
 };
 
 export default showMeals;

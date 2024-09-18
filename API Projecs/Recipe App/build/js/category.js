@@ -4,6 +4,11 @@ import showMeals from "./showMeals.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
   await loadHeader()
-  showMeals();
-  addingEvents();
+  const category = JSON.parse(sessionStorage.getItem("category"));
+  if (category) {
+    showMeals(category);
+    addingEvents();
+  } else {
+    location.replace("index.html")
+  }
 });
