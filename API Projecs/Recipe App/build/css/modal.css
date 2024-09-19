@@ -1,5 +1,90 @@
 .modal-container {
-    background-color: rgba(160, 160, 160, 0.75);
+    background-color: rgba(160, 160, 160, 0.503);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.modal {
+    font-family: sans-serif;
+    color: wheat;
+    border: 5px double wheat;
+    padding: 2rem;
+    max-width: 35rem;
+    max-height: 30rem;
+    background-color: rgb(55, 25, 25);
+    border-radius: 10px;
+    overflow-y: scroll;
 
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.meal-name {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.meal-tags {
+    span {
+        background-color: rgb(221, 62, 62);
+        color: rgb(234, 234, 234);
+        font-weight: 600;
+        border-radius: 5px;
+        padding: 2px 5px;
+    }
+}
+
+.meal-instructions {
+
+    h4 {
+        font-size: 1.25rem;
+        margin: 0 0 .5rem;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+}
+
+.meal-ingredients {
+    ol li {
+        margin-left: 1rem;
+        font-weight: 600;
+        color: rgb(255, 202, 202);
+    } 
+}
+
+.meal-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+}
+
+.modal::-webkit-scrollbar-track {
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 2px 0;
+    background-color: #404040;
+}
+  
+.modal::-webkit-scrollbar {
+    width: 10px;
+}
+  
+.modal::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #737272;
+    border: 1px solid #000;
 }
