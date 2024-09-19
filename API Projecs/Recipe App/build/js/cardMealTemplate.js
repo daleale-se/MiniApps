@@ -1,7 +1,7 @@
 import showRecipe from "./showRecipe.js";
 
 const cardMealTemplate = (meal) => {
-    const article = document.createElement("article");
+    const article = document.createElement("li");
     article.addEventListener("click", () => showRecipe(meal.idMeal));
     article.innerHTML = `
         <h3>${meal.strMeal}</h3>

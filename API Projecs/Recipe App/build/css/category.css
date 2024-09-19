@@ -1,0 +1,23 @@
+@import "main.css";
+@import "header.css";
+@import "items.css";
+
+.category-container {
+
+    h2 {
+        text-align: center;
+        margin: 1rem 0;
+    }
+
+    .meals-list {
+        h3 {
+            text-align: center;
+            margin: .5rem 0;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+}

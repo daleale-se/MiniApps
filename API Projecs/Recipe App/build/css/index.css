@@ -1,0 +1,30 @@
+@import "main.css";
+@import "header.css";
+@import "items.css";
+@import "modal.css";
+
+.hidden {
+    display: none;
+}
+
+.category-container {
+    
+    h2 {
+        text-align: center;
+        margin: 1rem 0;
+    }
+
+    .categories {
+        a {
+            text-align: center;
+            text-decoration: none;
+            font-size: larger;
+            color: rgb(28, 22, 21);
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,28 @@
+.items {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    li {
+        width: 200px;
+        max-width: 275px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: .5rem;
+
+        &:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+    
+        @media screen and (min-width: 300px) {
+            width: 45%;
+        }
+
+        @media screen and (min-width: 582px) {
+            width: unset;
+        } 
+
+    }
+}
