@@ -1,7 +1,7 @@
-@import "main.css";
+@import "modal.css";
 @import "header.css";
 @import "items.css";
-@import "modal.css";
+@import "main.css";
 
 .category-container {
 

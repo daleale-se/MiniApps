@@ -7,3 +7,31 @@
 main {
     padding-bottom: 1.75rem;
 }
+
+body {
+    background-color: rgb(222, 99, 38);
+}
+
+h2, h3, p {
+    color: wheat;
+}
+
+.hidden {
+    display: none;
+}
+
+.searched-meals-list {
+
+    h3 {
+        padding-bottom: .5rem;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+.searched-meals-container {
+    padding: 1.75rem 0;
+}

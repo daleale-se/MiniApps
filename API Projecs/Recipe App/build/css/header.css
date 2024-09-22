@@ -1,4 +1,5 @@
 header div {
+    background-color: rgb(161, 38, 38);
     padding: 1rem 0;
     display: flex;
     flex-direction: column;
@@ -10,7 +11,7 @@ header div {
 
     a {
         text-decoration: none;
-        color: black;
+        color: wheat;
     }
 }
 
