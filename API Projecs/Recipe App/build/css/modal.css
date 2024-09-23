@@ -32,6 +32,10 @@
 }
 
 .meal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
     span {
         background-color: rgb(221, 62, 62);
         color: rgb(234, 234, 234);
@@ -57,11 +61,18 @@
 }
 
 .meal-ingredients {
+
+    h4 {
+        font-size: 1.25rem;
+        margin: 0 0 .5rem;
+    }
+
     ol li {
         margin-left: 1rem;
         font-weight: 600;
         color: rgb(255, 202, 202);
     } 
+    
 }
 
 .meal-video {

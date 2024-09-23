@@ -1,7 +1,7 @@
 import hideSearchedMeals from "./hideSearchedMeals.js";
 import showSearchValue from "./showSearchValue.js";
 
-function addingEvents() {
+function searchEvents() {
   const searchInput = document.getElementById("search-input");
   const form = document.querySelector(".search-form");
 
@@ -19,4 +19,4 @@ function addingEvents() {
   });
 }
 
-export default addingEvents;
+export default searchEvents;

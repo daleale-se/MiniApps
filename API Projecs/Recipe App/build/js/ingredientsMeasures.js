@@ -3,7 +3,7 @@ const ingredientsMeasures = (meal) => {
     const keyMeasures = "strMeasure";
     const ingredientsMeasures = [];
     let n = 0;
-    while (meal[`${keyIngredients}${n + 1}`] !== "") {
+    while (meal[`${keyMeasures}${n + 1}`] && meal[`${keyMeasures}${n + 1}`] !== " ") {
         n++;
         ingredientsMeasures.push(`${meal[keyIngredients + n]} - ${meal[keyMeasures + n]}`);
     }

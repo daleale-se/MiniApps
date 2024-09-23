@@ -1,5 +1,6 @@
 import loadHeader from "./loadHeader.js";
 import loadModal from "./loadModal.js";
+import modalEvents from "./modalEvents.js";
 import addingEvents from "./searchInput.js";
 import showMeals from "./showMeals.js";
 
@@ -13,4 +14,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   } else {
     location.replace("index.html")
   }
+  modalEvents()
 });
